@@ -45,9 +45,11 @@ if [ "$#" -ne 3 ]; then
     exit 1
 fi
 
-INPUT_H5AD="$1"
-OUTPUT_DIR="$2"
-BANKSY_SCRIPT="$3"
+INPUT_H5AD="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
+BANKSY_SCRIPT="$(cd "$(dirname "$3")" && pwd)/$(basename "$3")"
+# Output dir may not exist yet, so resolve parent then append basename
+OUTPUT_DIR_PARENT="$(cd "$(dirname "$2")" && pwd)"
+OUTPUT_DIR="$OUTPUT_DIR_PARENT/$(basename "$2")"
 
 # -----------------------------
 # Sanity checks
